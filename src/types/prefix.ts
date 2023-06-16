@@ -4,3 +4,6 @@ export type Prefix<
   Prefix extends string = never,
   Base extends string = ""
 > = IsNever<Prefix> extends true ? `${Base}` : `${Prefix}${Base}`;
+
+type PPP = Prefix<"dsa.","a">
+//    ^?

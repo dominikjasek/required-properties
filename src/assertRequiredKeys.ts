@@ -4,13 +4,19 @@ import { WithRequiredKeys } from "./types/with-required-keys";
 export function assertRequiredKeys<T, TKeys extends RecursiveKeyOf<T>[]>(
   obj: T,
   requiredKeys: TKeys
-): WithRequiredKeys<T, TKeys> {
+): asserts obj is WithRequiredKeys<T, TKeys> {
   // for (const property of requiredKeys) {
-  //   if (obj[property] === null || obj[property] === undefined) {
-  //     throw new Error(`Field ${property.toString()} is null or undefined`);
+  //   const paths = (property as string).split(".");
+  //   // go through the path and check if the property exists
+  //   let currentObj = obj;
+  //   for (const path of paths) {
+  //     if (currentObj[path] === null || currentObj[path] === undefined) {
+  //       throw new Error(`Field ${property.toString()} is null or undefined`);
+  //     }
+  //     currentObj = currentObj[path];
   //   }
   // }
-  return null as any;
+  // return null as any;
 }
 
 interface Person {
@@ -36,11 +42,10 @@ person.age;
 person.address.city;
 //              ^?
 
-const newPerson = assertRequiredKeys(person, ["age", "address.city"]);
+assertRequiredKeys(person, ["age", "address.city"]);
 
-newPerson.age;
+person.age;
 //      ^?
-newPerson.address.city;
+person.address.city;
 //                 ^?
 
-function isComplete<T extends {}>(o: T): asserts o is { [P in keyof T]: NonNullable<T[P]> } {}

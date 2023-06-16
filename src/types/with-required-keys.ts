@@ -4,16 +4,32 @@ import { Prefix } from "./prefix";
 import { RecursiveKeyOf } from "./recursive-key-of.type";
 import { TerminalType } from "./terminal";
 
+// export type WithRequiredKeys<Obj, TKeys> = {
+//   [K in keyof Obj]: K extends object
+//     ? WithRequiredKeys<Obj[K], TKeys> extends Obj[K]
+//       ? WithRequiredKeys<Obj[K], TKeys>
+//       : never
+//     : Obj[K];
+// };
+
 export type WithRequiredKeys<Obj, RequiredKeys extends string[], PrefixKey extends string = never> = {
-  [K in KeyOf<Obj>]: Obj[K] extends TerminalType
+  [K in keyof Obj]: Obj[K] extends TerminalType
     ? // it is terminal
-      Prefix<PrefixKey, K> extends ArrayValues<RequiredKeys>
-      ? NonNullable<Obj[K]>
-      : Obj[K]
+      K extends string
+      ? Prefix<PrefixKey, K> extends ArrayValues<RequiredKeys>
+        ? NonNullable<Obj[K]>
+        : Obj[K]
+      : never
     : // it is object
-    Prefix<PrefixKey, K> extends ArrayValues<RequiredKeys>
-    ? WithRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${Prefix<PrefixKey, K>}.`>
-    : WithRequiredKeys<Obj[K], RequiredKeys, `${Prefix<PrefixKey, K>}.`>;
+    K extends string
+    ? Prefix<PrefixKey, K> extends ArrayValues<RequiredKeys>
+      ? WithRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${Prefix<PrefixKey, K>}.`> extends Obj[K]
+        ? WithRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${Prefix<PrefixKey, K>}.`>
+        : never
+      : WithRequiredKeys<Obj[K], RequiredKeys, `${Prefix<PrefixKey, K>}.`> extends Obj[K]
+      ? WithRequiredKeys<Obj[K], RequiredKeys, `${Prefix<PrefixKey, K>}.`>
+      : never
+    : never;
 };
 
 // export type WithRequiredKeys<T, RequiredKeys extends RecursiveKeyOf<T>[]> = InnerRequiredKeys<T, RequiredKeys, never>;
@@ -29,11 +45,8 @@ interface Person {
   };
 }
 
-type T1 = WithRequiredKeys<
-  //  ^?
-  Person,
-  ["name", "address.city"]
->;
+type T1 = WithRequiredKeys<//  ^?
+Person>;
 
 const person: T1 = {
   age: 3,

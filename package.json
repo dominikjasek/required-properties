@@ -1,0 +1,28 @@
+{
+  "name": "ts-required-keys",
+  "version": "1.0.0",
+  "description": "Assert required keys of object with full typescript support",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "tsc",
+    "dev": "tsup src/index.ts --watch --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts"
+  },
+  "keywords": [
+    "typescript",
+    "required keys",
+    "assert",
+    "nonnullable"
+  ],
+  "author": "Dominik Jašek",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^6.7.0",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "prettier": "^2.8.8"
+  }
+}

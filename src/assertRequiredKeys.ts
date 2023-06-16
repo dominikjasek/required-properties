@@ -1,7 +1,8 @@
 import { RecursiveNullableKeyOf } from "./types/recursive-key-of.type";
 import { RequiredKeys, WithRequiredKeys } from "./types/with-required-keys";
+import { F } from "ts-toolbelt";
 
-export function assertRequiredKeys<T, TKeys extends RecursiveNullableKeyOf<T>[]>(
+export function assertRequiredKeys<T, const TKeys extends readonly RecursiveNullableKeyOf<T>[]>(
   obj: T,
   requiredKeys: TKeys
 ): asserts obj is RequiredKeys<T, TKeys> {
@@ -16,7 +17,7 @@ export function assertRequiredKeys<T, TKeys extends RecursiveNullableKeyOf<T>[]>
   //     currentObj = currentObj[path];
   //   }
   // }
-  // return null as any;
+  return null as any;
 }
 
 interface Person {
@@ -48,9 +49,10 @@ person.age;
 person.address.city;
 //              ^?
 
-assertRequiredKeys(person, [""]);
+assertRequiredKeys(person, ["address.city"]);
+//       ^? 
 
 person.age;
 //      ^?
 person.address.city;
-//                 ^?
+//                ^?

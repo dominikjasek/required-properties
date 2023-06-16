@@ -21,7 +21,10 @@ export type WithRequiredKeys<Obj, RequiredKeys extends string[], Prefix extends 
     : never;
 };
 
-export type RequiredKeys<T, RequiredKeys extends RecursiveNullableKeyOf<T>[]> = WithRequiredKeys<T, RequiredKeys>;
+export type RequiredKeys<T, RequiredKeys extends readonly RecursiveNullableKeyOf<T>[]> = WithRequiredKeys<
+  T,
+  RequiredKeys
+>;
 
 // ------------------------
 interface Person {
@@ -39,7 +42,7 @@ const person: T1 = {
   age: 3,
   name: "S",
   address: {
-    city: null,
+    city: "null",
     country: "S",
   },
 };

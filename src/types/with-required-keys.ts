@@ -2,6 +2,9 @@ import { ArrayValues } from "./array-values";
 import { MergeStrings } from "./merge-strings";
 import { RecursiveNullableKeyOf } from "./recursive-nullable-key-of";
 
+/**
+ * Returns all recursive keys of an object that are nullable, required keys are generic `string[]` to allow recursion
+ */
 export type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[], Prefix extends string = never> = {
   [K in keyof Obj]: K extends string
     ? Obj[K] extends object
@@ -24,7 +27,10 @@ export type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[],
     : never;
 };
 
-export type WithRequiredKeys<T, Keys extends readonly RecursiveNullableKeyOf<T>[]> = WithGenericRequiredKeys<T, Keys>;
+/**
+ * Returns all recursive keys of an object that are nullable, required keys are constrained to RecursiveNullableKeyOf<T> for typescript intellisense
+ */
+export type WithRequiredKeys<T extends object, Keys extends readonly RecursiveNullableKeyOf<T>[]> = WithGenericRequiredKeys<T, Keys>;
 
 // ------------------------
 interface Person {

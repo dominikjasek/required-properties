@@ -1,1 +1,1 @@
-export * from "./assert-required-keys";
+export * from "./assert-required-properties";

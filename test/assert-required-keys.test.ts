@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { assertRequiredKeys } from "../src";
+import { assertRequiredProperties } from "../src";
 
 interface Person {
   name: string | null | undefined;
@@ -19,7 +19,7 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name", "age", "address.city"])).not.toThrow();
+    expect(() => assertRequiredProperties(person, ["name", "age", "address.city"])).not.toThrow();
   });
 
   it("should throw error when root key is null", () => {
@@ -31,7 +31,7 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name"])).toThrow("Property name is required");
+    expect(() => assertRequiredProperties(person, ["name"])).toThrow("Property name is required");
   });
 
   it("should throw error when root key is undefined", () => {
@@ -43,7 +43,7 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name", "address.city"])).toThrow("Property name is required");
+    expect(() => assertRequiredProperties(person, ["name", "address.city"])).toThrow("Property name is required");
   });
 
   it("should throw error when nested property is null", () => {
@@ -55,7 +55,9 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name", "address.city"])).toThrow("Property address.city is required");
+    expect(() => assertRequiredProperties(person, ["name", "address.city"])).toThrow(
+      "Property address.city is required"
+    );
   });
 
   it("should throw error when nested property is undefined", () => {
@@ -67,7 +69,9 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name", "address.city"])).toThrow("Property address.city is required");
+    expect(() => assertRequiredProperties(person, ["name", "address.city"])).toThrow(
+      "Property address.city is required"
+    );
   });
 
   it("should throw error when both root and nested property is undefined", () => {
@@ -79,6 +83,6 @@ describe("assertRequiredKeys", () => {
       },
     };
 
-    expect(() => assertRequiredKeys(person, ["name", "address.city"])).toThrow("Property name is required");
+    expect(() => assertRequiredProperties(person, ["name", "address.city"])).toThrow("Property name is required");
   });
 });

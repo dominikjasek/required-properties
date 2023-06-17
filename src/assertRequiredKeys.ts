@@ -1,6 +1,5 @@
 import { RecursiveNullableKeyOf } from "./types/recursive-key-of.type";
-import { RequiredKeys, WithRequiredKeys } from "./types/with-required-keys";
-import { F } from "ts-toolbelt";
+import { RequiredKeys } from "./types/with-required-keys";
 
 export function assertRequiredKeys<T, const TKeys extends readonly RecursiveNullableKeyOf<T>[]>(
   obj: T,
@@ -50,7 +49,6 @@ person.address.city;
 //              ^?
 
 assertRequiredKeys(person, ["address.city"]);
-//       ^? 
 
 person.age;
 //      ^?

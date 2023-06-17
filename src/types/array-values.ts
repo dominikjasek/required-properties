@@ -1,1 +1,1 @@
-export type ArrayValues<Arr extends any[]> = Arr[number];
+export type ArrayValues<Arr extends readonly any[]> = Arr[number];

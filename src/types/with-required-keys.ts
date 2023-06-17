@@ -1,27 +1,30 @@
 import { ArrayValues } from "./array-values";
-import { AddPrefix } from "./prefix";
-import { RecursiveNullableKeyOf } from "./recursive-key-of.type";
-import { TerminalType } from "./terminal";
+import { MergeStrings } from "./merge-strings";
+import { RecursiveNullableKeyOf } from "./recursive-nullable-key-of";
 
-export type GenericRequiredKeys<Obj, RequiredKeys extends readonly string[], Prefix extends string = never> = {
+export type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[], Prefix extends string = never> = {
   [K in keyof Obj]: K extends string
-    ? Obj[K] extends TerminalType
-      ? // it is terminal
-        AddPrefix<Prefix, K> extends ArrayValues<RequiredKeys>
-        ? NonNullable<Obj[K]>
-        : Obj[K]
-      : // it is object
-      AddPrefix<Prefix, K> extends ArrayValues<RequiredKeys>
-      ? GenericRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${AddPrefix<Prefix, K>}.`> extends Obj[K]
-        ? GenericRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${AddPrefix<Prefix, K>}.`>
+    ? Obj[K] extends object
+      ? // it is object
+        MergeStrings<Prefix, K> extends ArrayValues<RequiredKeys>
+        ? // it is required key
+          WithGenericRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${MergeStrings<Prefix, K>}.`> extends Obj[K]
+          ? WithGenericRequiredKeys<NonNullable<Obj[K]>, RequiredKeys, `${MergeStrings<Prefix, K>}.`>
+          : never
+        : // it is not required key
+        WithGenericRequiredKeys<Obj[K], RequiredKeys, `${MergeStrings<Prefix, K>}.`> extends Obj[K]
+        ? WithGenericRequiredKeys<Obj[K], RequiredKeys, `${MergeStrings<Prefix, K>}.`>
         : never
-      : GenericRequiredKeys<Obj[K], RequiredKeys, `${AddPrefix<Prefix, K>}.`> extends Obj[K]
-      ? GenericRequiredKeys<Obj[K], RequiredKeys, `${AddPrefix<Prefix, K>}.`>
-      : never
+      : // it is terminal type
+      MergeStrings<Prefix, K> extends ArrayValues<RequiredKeys>
+      ? // it is required key
+        NonNullable<Obj[K]>
+      : // // it is not required key
+        Obj[K]
     : never;
 };
 
-export type RequiredKeys<T, Keys extends readonly RecursiveNullableKeyOf<T>[]> = GenericRequiredKeys<T, Keys>;
+export type WithRequiredKeys<T, Keys extends readonly RecursiveNullableKeyOf<T>[]> = WithGenericRequiredKeys<T, Keys>;
 
 // ------------------------
 interface Person {
@@ -33,7 +36,7 @@ interface Person {
   };
 }
 
-type T1 = RequiredKeys<Person, ["name", "address.city"]>;
+type T1 = WithRequiredKeys<Person, ["name"]>;
 
 const person: T1 = {
   age: 3,
@@ -42,4 +45,16 @@ const person: T1 = {
     city: "null",
     country: "S",
   },
+};
+
+type A = {
+  a: string;
+  b?: string;
+};
+
+type B = { [K in keyof A]: Required<A[K]> };
+
+const b: B = {
+  a: "a",
+  b: "b",
 };

@@ -1,0 +1,15 @@
+.gitignore
+.changeset
+test
+src
+example
+.prettierignore
+.prettierrc.json
+CHANGELOG.md
+LICENSE
+package.json
+README.md
+tsconfig.json
+tsconfig.vitest-temp.json
+vitest.config.ts
+node_modules

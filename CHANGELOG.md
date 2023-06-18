@@ -1,5 +1,11 @@
 # required-properties
 
+## 1.0.2
+
+### Patch Changes
+
+- a20a407: add .npmignore, gh repo and update readme
+
 ## 1.0.1
 
 ### Patch Changes

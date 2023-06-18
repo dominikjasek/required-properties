@@ -45,6 +45,8 @@ npm i required-properties
 
 ### `assertRequiredProperties`
 
+First argument is object, second argument is an array of properties which can be `null` or `undefined`. If nested object, you can separate properties with dot `.`
+
 ```ts
 interface Person {
     firstName: string | null;

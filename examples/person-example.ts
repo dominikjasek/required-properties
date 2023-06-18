@@ -5,8 +5,8 @@ interface Person {
   lastName: string;
 }
 
+// we require firstName to be a string
 const printFullName = (names: { firstName: string; lastName: string }) => {
-  // notice we require firstName to be a string
   console.log(`${names.firstName} ${names.lastName}`);
 };
 

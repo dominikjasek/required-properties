@@ -1,6 +1,11 @@
 import { RecursiveNullableKeyOf } from "./types/recursive-nullable-key-of";
 import { WithRequiredKeys } from "./types/with-required-keys";
 
+/**
+ * Asserts that an object has all required properties
+ * @param obj object to assert
+ * @param requiredKeys array of required keys (nested keys are dot separated)
+ */
 export function assertRequiredProperties<T extends object, const TKeys extends readonly RecursiveNullableKeyOf<T>[]>(
   obj: T,
   requiredKeys: TKeys

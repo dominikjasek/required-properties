@@ -1,5 +1,11 @@
 # required-properties
 
+## 1.0.3
+
+### Patch Changes
+
+- 1204926: fix typos
+
 ## 1.0.2
 
 ### Patch Changes

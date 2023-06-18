@@ -1,6 +1,6 @@
 {
   "name": "ts-required-properties",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Assert required properties of object with full typescript support",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -21,6 +21,7 @@
   "author": "Dominik Jašek",
   "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "^2.26.1",
     "prettier": "^2.8.8",
     "tsup": "^6.7.0",
     "typescript": "^5.1.3",

@@ -33,8 +33,6 @@ printFullName(person); // ✅ this is now valid TS code
 
 ```
 
-Code example can be found [here](./example/person-example.ts)
-
 ## Installation
 
 ```bash

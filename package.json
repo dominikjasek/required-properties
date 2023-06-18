@@ -1,5 +1,5 @@
 {
-  "name": "ts-required-properties",
+  "name": "required-properties",
   "version": "1.0.0",
   "description": "Assert required properties of object with full typescript support",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "lint": "tsc",
     "dev": "tsup src/index.ts --watch --format cjs,esm --dts",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && changeset publish --access public",
+    "release": "pnpm run build && changeset publish",
     "test": "vitest",
     "typecheck": "vitest typecheck"
   },

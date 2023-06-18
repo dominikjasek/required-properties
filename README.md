@@ -1,4 +1,4 @@
-# `ts-required-properties`
+# `required-properties`
 
 Validates required properties in a given object with full TypeScript support 🚀
 
@@ -38,7 +38,7 @@ Code example can be found [here](./example/person-example.ts)
 ## Installation
 
 ```bash
-npm i ts-required-properties
+npm i required-properties
 ```
 
 ## Usage

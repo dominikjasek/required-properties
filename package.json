@@ -9,7 +9,7 @@
     "lint": "tsc",
     "dev": "tsup src/index.ts --watch --format cjs,esm --dts",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && changeset publish",
+    "release": "pnpm run build && changeset publish --access public",
     "test": "vitest",
     "typecheck": "vitest typecheck"
   },

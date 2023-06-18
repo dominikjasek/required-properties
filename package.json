@@ -16,12 +16,18 @@
   },
   "keywords": [
     "typescript",
-    "required properties",
+    "required",
+    "properties",
+    "fields",
     "assert",
     "nonnullable"
   ],
   "author": "Dominik Jašek",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominikjasek/required-properties"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "prettier": "^2.8.8",

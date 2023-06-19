@@ -1,14 +1,13 @@
 .gitignore
 .changeset
+.github
 test
 src
-example
+examples
 .prettierignore
 .prettierrc.json
 CHANGELOG.md
 LICENSE
-package.json
-README.md
 tsconfig.json
 tsconfig.vitest-temp.json
 vitest.config.ts

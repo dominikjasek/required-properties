@@ -5,7 +5,7 @@ import { RecursiveNullableKeyOf } from "./recursive-nullable-key-of";
 /**
  * Returns all recursive keys of an object that are nullable, required keys are generic `string[]` to allow recursion
  */
-export type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[], Prefix extends string = never> = {
+type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[], Prefix extends string = never> = {
   [K in keyof Obj]: K extends string
     ? Obj[K] extends object
       ? // it is object
@@ -29,38 +29,9 @@ export type WithGenericRequiredKeys<Obj, RequiredKeys extends readonly string[],
 
 /**
  * Returns all recursive keys of an object that are nullable, required keys are constrained to RecursiveNullableKeyOf<T> for typescript intellisense
+ * @example type T = WithRequiredKeys<{ a: { b: string| null }}, ["a.b"]> // => { a: { b: string } };
  */
-export type WithRequiredKeys<T extends object, Keys extends readonly RecursiveNullableKeyOf<T>[]> = WithGenericRequiredKeys<T, Keys>;
-
-// ------------------------
-interface Person {
-  name: string | null;
-  age: number | null;
-  address: {
-    city: string | null;
-    country: string;
-  };
-}
-
-type T1 = WithRequiredKeys<Person, ["name"]>;
-
-const person: T1 = {
-  age: 3,
-  name: "S",
-  address: {
-    city: "null",
-    country: "S",
-  },
-};
-
-type A = {
-  a: string;
-  b?: string;
-};
-
-type B = { [K in keyof A]: Required<A[K]> };
-
-const b: B = {
-  a: "a",
-  b: "b",
-};
+export type WithRequiredKeys<
+  T extends object,
+  Keys extends readonly RecursiveNullableKeyOf<T>[]
+> = WithGenericRequiredKeys<T, Keys>;

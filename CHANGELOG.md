@@ -1,5 +1,11 @@
 # required-properties
 
+## 1.1.0
+
+### Minor Changes
+
+- c46bb19: add peerDependency for typescript 5.0 (it required const modifier for generics https://www.youtube.com/watch?v=hk6ZkD0Vg3w)
+
 ## 1.0.4
 
 ### Patch Changes

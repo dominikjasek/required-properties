@@ -3,11 +3,29 @@ import { assertRequiredProperties } from "../src";
 interface Person {
   firstName: string | null;
   lastName: string;
+  age: number | null;
+  address: {
+    city: string | null;
+    country: string;
+  };
+  optionalLivingDetails:
+    | {
+        propertyType: "house" | "apartment";
+      }
+    | undefined;
 }
 
 const person: Person = {
   firstName: "John",
   lastName: "Doe",
+  age: null,
+  address: {
+    city: "New York",
+    country: "USA",
+  },
+  optionalLivingDetails: {
+    propertyType: "house",
+  },
 };
 
 // in some function, we require firstName to be a string
@@ -24,5 +42,15 @@ if (person.firstName === null) {
 printFullName(person); // ❌ this results in TS error, because person is still of type Person (although typescript knows that person.firstName is string)
 
 // we can use assertRequiredProperties to make sure that firstName is not null
-assertRequiredProperties(person, ["firstName"]);
+assertRequiredProperties(person, ["firstName", "address.city", "optionalLivingDetails"]);
 printFullName(person); // ✅ this is now valid TS code
+
+person.firstName; // -> string
+//      ^?
+person.age; // -> number | null
+//      ^?
+person.address.city; // -> string
+//              ^?
+
+person.optionalLivingDetails.propertyType; // -> { propertyType: "house" | "apartment" }
+//                       ^?

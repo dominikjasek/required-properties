@@ -1,5 +1,11 @@
 # required-properties
 
+## 1.1.1
+
+### Patch Changes
+
+- baa4051: readme update
+
 ## 1.1.0
 
 ### Minor Changes

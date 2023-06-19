@@ -4,6 +4,8 @@ Validates required properties in a given object with full TypeScript support �
 
 ## Motivation
 
+We have an interface with nullable property
+
 ```ts
 interface Person {
     firstName: string | null;
@@ -14,23 +16,32 @@ const person: Person = {
     firstName: "John",
     lastName: "Doe",
 }
+```
 
-// in some function, we require firstName to be a string
+We define a function which accepts subset of `Person` with nonullable properties
+
+```ts
 function printFullName(names: { firstName: string; lastName: string }) {
     console.log(`${names.firstName} ${names.lastName}`);
 }
+```
 
-// business logic of our app ensures that firstName is required in this specific usecase, therefore we can do:
+Somewhere in our app, we know for sure that `firstName` is not null, therefore we can do:
+
+```ts
 if (person.firstName === null) {
     throw new Error("firstName is required");
 }
 
-printFullName(person); // ❌ this results in TS error, because person is still of type Person (although typescript knows that person.firstName is string)
+printFullName(person); // ❌ this results in TS error, because person is still of type Person which has nullable property firstName
+```
 
-// we can use assertRequiredProperties to make sure that firstName is not null
+Instead of that, you can use `assertRequiredProperties`, which handles assertion and throws error if `firstName` is
+nullable 👍
+
+```ts
 assertRequiredProperties(person, ["firstName"]);
 printFullName(person); // ✅ this is now valid TS code
-
 ```
 
 ## Installation
@@ -43,8 +54,9 @@ npm i required-properties
 
 ### `assertRequiredProperties`
 
-First argument is object, second argument is an array of properties which can be `null` or `undefined`. If nested
-object, you can separate properties with dot `.`
+- first parameter is object you want to validate
+- second argument is an array of properties which can be `null` or `undefined`. You can access nested properties using
+  dot separator
 
 ```ts
 interface Person {

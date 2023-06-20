@@ -44,6 +44,8 @@ assertRequiredProperties(person, ["firstName"]);
 printFullName(person); // ✅ this is now valid TS code
 ```
 
+You can see this code example on [TS Playground](https://tsplay.dev/m3vY1N)
+
 ## Installation
 
 ```bash

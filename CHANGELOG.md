@@ -1,5 +1,11 @@
 # required-properties
 
+## 1.1.3
+
+### Patch Changes
+
+- 0eef1ad: update readme
+
 ## 1.1.2
 
 ### Patch Changes

@@ -123,4 +123,5 @@ printFullName(person); // ✅ this is now valid TS code
 ```
 
 It comes with full TypeScript support (also for nested nullable properties):
-![typescript intellisense required properties](https://gcdnb.pbrd.co/images/Gwv3WzyumIHf.png?o=1)
+<img width="800" alt="image" src="https://github.com/dominikjasek/required-properties/assets/48070343/7987f677-60ab-413d-b1a9-a06f7f2185d1">
+
